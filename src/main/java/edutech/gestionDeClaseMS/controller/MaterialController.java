@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import edutech.gestionDeClaseMS.model.Material;
 import edutech.gestionDeClaseMS.model.TipoMaterial;
 import edutech.gestionDeClaseMS.model.EstadoMaterial; // Importar el nuevo Enum
-import edutech.gestionDeClaseMS.service.MaterialServiceTest;
+import edutech.gestionDeClaseMS.service.MaterialService;
 
 import java.util.List;
 
@@ -16,10 +16,10 @@ import java.util.List;
 @RequestMapping("/api/materiales")
 public class MaterialController {
 
-    private final MaterialServiceTest materialService;
+    private final MaterialService materialService;
 
     @Autowired
-    public MaterialController(MaterialServiceTest materialService) {
+    public MaterialController(MaterialService materialService) {
         this.materialService = materialService;
     }
 
@@ -78,7 +78,7 @@ public class MaterialController {
         return ResponseEntity.ok(materiales);
     }
 
-    @PatchMapping("/{id}/aprobar") // Nuevo endpoint para aprobar material
+    @PatchMapping("/{id}/aprobar") 
     public ResponseEntity<Material> aprobarMaterial(@PathVariable Long id) {
         try {
             Material materialAprobado = materialService.aprobarMaterial(id);
@@ -88,7 +88,7 @@ public class MaterialController {
         }
     }
 
-    @PatchMapping("/{id}/rechazar") // Nuevo endpoint para rechazar material
+    @PatchMapping("/{id}/rechazar") 
     public ResponseEntity<Material> rechazarMaterial(@PathVariable Long id) {
         try {
             Material materialRechazado = materialService.rechazarMaterial(id);
@@ -98,7 +98,7 @@ public class MaterialController {
         }
     }
 
-    @GetMapping("/por-estado/{estadoMaterial}") // Nuevo endpoint para listar por estado
+    @GetMapping("/por-estado/{estadoMaterial}") 
     public ResponseEntity<List<Material>> listarMaterialesPorEstado(@PathVariable EstadoMaterial estadoMaterial) {
         List<Material> materiales = materialService.listarMaterialesPorEstado(estadoMaterial);
         return ResponseEntity.ok(materiales);

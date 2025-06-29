@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import edutech.gestionDeClaseMS.model.Evaluacion;
-import edutech.gestionDeClaseMS.service.EvaluacionServiceTest;
+import edutech.gestionDeClaseMS.service.EvaluacionService;
 
 import java.util.List;
 
@@ -14,10 +14,10 @@ import java.util.List;
 @RequestMapping("/api/evaluaciones")
 public class EvaluacionController {
 
-    private final EvaluacionServiceTest evaluacionService;
+    private final EvaluacionService evaluacionService;
 
     @Autowired
-    public EvaluacionController(EvaluacionServiceTest evaluacionService) {
+    public EvaluacionController(EvaluacionService evaluacionService) {
         this.evaluacionService = evaluacionService;
     }
 
