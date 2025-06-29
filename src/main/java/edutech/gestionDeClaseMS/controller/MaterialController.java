@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.*;
 
 import edutech.gestionDeClaseMS.model.Material;
 import edutech.gestionDeClaseMS.model.TipoMaterial;
-import edutech.gestionDeClaseMS.service.MaterialService;
+import edutech.gestionDeClaseMS.model.EstadoMaterial; // Importar el nuevo Enum
+import edutech.gestionDeClaseMS.service.MaterialServiceTest;
 
 import java.util.List;
 
@@ -15,10 +16,10 @@ import java.util.List;
 @RequestMapping("/api/materiales")
 public class MaterialController {
 
-    private final MaterialService materialService;
+    private final MaterialServiceTest materialService;
 
     @Autowired
-    public MaterialController(MaterialService materialService) {
+    public MaterialController(MaterialServiceTest materialService) {
         this.materialService = materialService;
     }
 
@@ -74,6 +75,32 @@ public class MaterialController {
     @GetMapping("/por-tipo/{tipoMaterial}")
     public ResponseEntity<List<Material>> listarMaterialesPorTipo(@PathVariable TipoMaterial tipoMaterial) {
         List<Material> materiales = materialService.listarMaterialesPorTipo(tipoMaterial);
+        return ResponseEntity.ok(materiales);
+    }
+
+    @PatchMapping("/{id}/aprobar") // Nuevo endpoint para aprobar material
+    public ResponseEntity<Material> aprobarMaterial(@PathVariable Long id) {
+        try {
+            Material materialAprobado = materialService.aprobarMaterial(id);
+            return ResponseEntity.ok(materialAprobado);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+
+    @PatchMapping("/{id}/rechazar") // Nuevo endpoint para rechazar material
+    public ResponseEntity<Material> rechazarMaterial(@PathVariable Long id) {
+        try {
+            Material materialRechazado = materialService.rechazarMaterial(id);
+            return ResponseEntity.ok(materialRechazado);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+
+    @GetMapping("/por-estado/{estadoMaterial}") // Nuevo endpoint para listar por estado
+    public ResponseEntity<List<Material>> listarMaterialesPorEstado(@PathVariable EstadoMaterial estadoMaterial) {
+        List<Material> materiales = materialService.listarMaterialesPorEstado(estadoMaterial);
         return ResponseEntity.ok(materiales);
     }
 }

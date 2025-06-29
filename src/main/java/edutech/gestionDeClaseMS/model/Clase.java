@@ -40,8 +40,7 @@ public class Clase {
     @OneToMany(mappedBy = "clase", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Evaluacion> evaluaciones = new ArrayList<>();
 
-    @OneToMany(mappedBy = "clase", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Valoracion> valoraciones = new ArrayList<>();
+
 
     @OneToMany(mappedBy = "clase", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Progreso> progresos = new ArrayList<>();

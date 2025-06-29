@@ -29,6 +29,10 @@ public class Material {
 
     @Column(nullable = false)
     private LocalDateTime fechaCreacion;
+    
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private EstadoMaterial estadoMaterial; // Nuevo campo para el estado del material
 
     
     @ManyToOne(fetch = FetchType.LAZY)
